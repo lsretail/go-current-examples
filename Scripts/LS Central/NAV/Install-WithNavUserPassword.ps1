@@ -9,13 +9,13 @@ $Arguments = @{
     'bc-server' = @{
         DeveloperServicesEnabled = 'true'
         ClientServicesCredentialType = 'NavUserPassword'
-        ServicesCertificateThumbprint = '${internal/self-signed-certificate-private.CertificateThumbprint}'
+        ServicesCertificateThumbprint = '${my-private-certificate.CertificateThumbprint}'
     }
     'bc-web-client' = @{
-        DnsIdentity =  '${internal/self-signed-certificate-public.DnsIdentity}'
+        DnsIdentity =  '${my-public-certificate.DnsIdentity}'
     }
     'bc-windows-client' = @{
-        DnsIdentity =  '${internal/self-signed-certificate-public.DnsIdentity}'
+        DnsIdentity =  '${my-public-certificate.DnsIdentity}'
     }
 }
 
@@ -26,10 +26,11 @@ $Packages = @(
     # Optional, uncomment to include:
     #@{ Id = 'sql-server-express'; VersionQuery = '^-'}
     #@{ Id = 'bc-windows-client'; VersionQuery = ''}
+    @{ Id = "my-private-certificate"; Version = "" }
+    @{ Id = "my-public-certificate"; Version = "" }
+
     @{ Id = 'ls-central-demo-database'; VersionQuery = $LsCentralVersion}
     @{ Id = 'bc-server'; VersionQuery = $BcVersion}
-    @{ Id = "internal/self-signed-certificate-private"; Version = "" }
-    @{ Id = "internal/self-signed-certificate-public"; Version = "" }
     @{ Id = 'ls-central-toolbox-server'; VersionQuery = $LsCentralVersion}
     @{ Id = 'internal/ls-central-dev-license'; VersionQuery = ''}
     @{ Id = 'bc-web-client'; VersionQuery = ''}

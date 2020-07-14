@@ -21,8 +21,8 @@
 param(
     $SqlInstance = 'localhost\SQLEXPRESS',
     $DatabaseName = 'DatabaseName',
-    $BcVersion = '11.0.21441.0',
-    $InstanceName = 'LSInsightDemoData'
+    $BcVersion = '16.0.11233.12061',
+    $InstanceName = 'BcInstance'
 )
 
 $ErrorActionPreference = 'stop'
@@ -34,15 +34,16 @@ $Arguments = @{
         ConnectionString = "Data Source=$SqlInstance;Initial Catalog=$DatabaseName;Integrated Security=True"
         # This ensure Go Current will not update the database in any way, such as,
         # importing objects, apps or run database upgrade.
+        # You can use this if you have another service tier that will handle the database upgrades, such as import new licenses and apps.
         NoDatabaseUpgrades = 'true'
     }
 }
 
 $Packages = @(  
-  @{ Id = 'ls-central-toolbox-server'; VersionQuery = ''}
-  @{ Id = 'ls-dd-server-addin'; VersionQuery = ''}
-  @{ Id = 'bc-web-client'; VersionQuery = $BcVersion}
-  @{ Id = 'bc-server'; VersionQuery = $BcVersion} 
+  @{ Id = 'ls-central-toolbox-server'; VersionQuery = '' }
+  @{ Id = 'ls-dd-server-addin'; VersionQuery = '' }
+  @{ Id = 'bc-web-client'; VersionQuery = $BcVersion }
+  @{ Id = 'bc-server'; VersionQuery = $BcVersion }
 )
  
 $Packages | Install-GocPackage -InstanceName $InstanceName -Arguments $Arguments

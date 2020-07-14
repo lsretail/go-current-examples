@@ -1,13 +1,15 @@
-﻿Import-Module GoCurrent
+﻿#requires -RunAsAdministrator
 <#
     .SYNOPSIS
         Install LS Central and change various service tier configs.
 #>
+$ErrorActionPreference = 'stop'
+Import-Module GoCurrent
 
 # The bc-server has many parameters that configure the servier (update
 # CustomSettings.config), their name should match the settings key.
 # If a parameter does not exists for a setting, you can create a JSON
-# string with the settings you want to update and pass that to
+# string with the settings you want to update and pass it to
 # the SettingsJson parameter.
 $ServerSettings = @{
     SqlCommandTimeout = '01:30:00'
@@ -16,6 +18,7 @@ $ServerSettings = @{
 $Arguments = @{
     'bc-server' = @{
         DeveloperServicesEnabled = 'true'
+        AllowSessionCallSuspendWhenWriteTransactionStarted = 'true'
         # Here we convert the hashtable to a json string and pass that as an argument:
         SettingsJson = (ConvertTo-Json $ServerSettings -Compress).ToString()
     }
@@ -24,13 +27,13 @@ $Arguments = @{
 $Packages = @(
     # Uncomment to install SQL Express:
     #@{ Id = 'sql-server-express'; VersionQuery = '^-'}
-    @{ Id = 'ls-central-demo-database'; VersionQuery = '^'}
-    @{ Id = 'ls-central-app'; VersionQuery = '^'}
-    @{ Id = 'ls-central-toolbox-server'; VersionQuery = '^'}
-    @{ Id = 'ls-dd-server-addin'; VersionQuery = '^'}
-    @{ Id = 'bc-system-symbols'; VersionQuery = '^'}
-    @{ Id = 'bc-base-application'; VersionQuery = '^'}
-    @{ Id = 'bc-web-client'; VersionQuery = ''}
+    @{ Id = 'ls-central-demo-database'; Version = '' }
+    @{ Id = 'bc-server'; Version = '' }
+    @{ Id = 'bc-web-client'; Version = '' }
+    @{ Id = 'bc-system-symbols'; Version = '' }
+    @{ Id = 'bc-system-application-runtime'; Version = '' }
+    @{ Id = 'bc-base-application-runtime'; Version = '' }
+    @{ Id = 'ls-central-app-runtime'; Version = '' }
 )
 
 $Packages | Install-GocPackage -Arguments $Arguments -InstanceName 'LSCentral'
