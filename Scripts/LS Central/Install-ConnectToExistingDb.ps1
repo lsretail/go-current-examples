@@ -40,10 +40,10 @@ $Arguments = @{
 }
 
 $Packages = @(  
-  @{ Id = 'ls-central-toolbox-server'; VersionQuery = '' }
-  @{ Id = 'ls-dd-server-addin'; VersionQuery = '' }
-  @{ Id = 'bc-web-client'; VersionQuery = $BcVersion }
-  @{ Id = 'bc-server'; VersionQuery = $BcVersion }
+    @{ Id = 'ls-central-toolbox-server'; VersionQuery = '' }
+    @{ Id = 'ls-dd-server-addin'; VersionQuery = '' }
+    @{ Id = 'bc-web-client'; VersionQuery = $BcVersion }
+    @{ Id = 'bc-server'; VersionQuery = $BcVersion }
 )
  
 $Packages | Install-GocPackage -InstanceName $InstanceName -Arguments $Arguments

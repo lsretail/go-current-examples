@@ -10,6 +10,7 @@ $Arguments = @{
         DeveloperServicesEnabled = 'true'
         ClientServicesCredentialType = 'NavUserPassword'
         ServicesCertificateThumbprint = '${my-private-certificate.CertificateThumbprint}'
+        AllowSessionCallSuspendWhenWriteTransactionStarted = 'true'
     }
     'bc-web-client' = @{
         DnsIdentity =  '${my-public-certificate.DnsIdentity}'
