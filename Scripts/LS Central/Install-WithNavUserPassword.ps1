@@ -21,6 +21,7 @@ $Arguments = @{
         AllowForceSync = 'true'
         ClientServicesCredentialType = 'NavUserPassword'
         ServicesCertificateThumbprint = '${my-private-certificate.CertificateThumbprint}'
+        AllowSessionCallSuspendWhenWriteTransactionStarted = 'true'
     }
     'bc-web-client' = @{
         DnsIdentity =  '${my-public-certificate.DnsIdentity}'
@@ -35,13 +36,14 @@ $Packages = @(
     @{ Id = "my-public-certificate"; Version = "" }
     @{ Id = "my-private-certificate"; Version = "" }
 
-    @{ Id = 'ls-central-demo-database'; VersionQuery = '^'}
-    @{ Id = 'ls-central-app'; VersionQuery = '^'}
-    @{ Id = 'ls-central-toolbox-server'; VersionQuery = '^'}
-    @{ Id = 'ls-dd-server-addin'; VersionQuery = '^'}
-    @{ Id = 'bc-system-symbols'; VersionQuery = '^'}
-    @{ Id = 'bc-base-application'; VersionQuery = '^'}
-    @{ Id = 'bc-web-client'; VersionQuery = ''}
+    @{ Id = 'ls-central-demo-database'; Version = '' }
+    @{ Id = 'bc-server'; Version = '' }
+    @{ Id = 'bc-web-client'; Version = '' }
+    @{ Id = 'bc-system-symbols'; Version = '' }
+    @{ Id = 'bc-system-application-runtime'; Version = '' }
+    @{ Id = 'bc-base-application-runtime'; Version = '' }
+    @{ Id = 'ls-central-app-runtime'; Version = '' }
+    @{ Id = 'map/ls-central-to-bc'; Version = '' }
 )
  
 $Packages | Install-GocPackage -InstanceName 'LSCentral' -UpdateStrategy 'Manual' -Arguments $Arguments

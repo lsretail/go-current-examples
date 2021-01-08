@@ -36,6 +36,7 @@ $Arguments = @{
         # importing objects, apps or run database upgrade.
         # You can use this if you have another service tier that will handle the database upgrades, such as import new licenses and apps.
         NoDatabaseUpgrades = 'true'
+        AllowSessionCallSuspendWhenWriteTransactionStarted = 'true'
     }
 }
 

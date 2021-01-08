@@ -22,6 +22,7 @@ $Packages = @(
     @{ Id = 'bc-system-application-runtime'; Version = '' }
     @{ Id = 'bc-base-application-runtime'; Version = '' }
     @{ Id = 'ls-central-app-runtime'; Version = '' }
+    @{ Id = 'map/ls-central-to-bc'; Version = '' }
 )
  
 $Packages | Install-GocPackage -InstanceName 'LSCentral' -Arguments $Arguments
