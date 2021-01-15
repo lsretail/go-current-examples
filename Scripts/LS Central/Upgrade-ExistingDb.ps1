@@ -61,6 +61,7 @@ $Packages = @(
     @{ Id = 'bc-system-symbols'; Version = '' }
     @{ Id = 'bc-system-application-runtime'; Version = $BcAppVersion }
     @{ Id = 'bc-base-application-runtime'; Version = $BcAppVersion }
+    @{ Id = 'bc-application-runtime'; Version = $BcAppVersion }
     @{ Id = 'map/bc-app-to-platform'; Version = $BcAppVersion }
     @{ Id = 'ls-central-app-runtime'; Version = $LsCentralVersion }
     # Optional, uncomment to include:
