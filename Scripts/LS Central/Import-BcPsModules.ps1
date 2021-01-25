@@ -8,6 +8,11 @@
 
     .PARAMETER InstanceName
         Name of existing instance in Go Current.
+
+    .EXAMPLE
+        PS> .\Import-BcModules.ps1 -InstanceName 'LsCentral'
+
+        This example imports the BC cmdlets from a Go Current instance called LsCentral.
 #>
 param(
     $InstanceName = 'LsCentral'
