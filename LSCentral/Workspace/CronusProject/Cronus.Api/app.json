@@ -1,0 +1,31 @@
+{
+  "id": "6ed20322-04fc-4668-91a4-1388e8470eb0",
+  "name": "Cronus.Api",
+  "publisher": "Cronus",
+  "version": "1.0.0.0",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [
+    {
+      "id": "c61cfd91-3499-4912-989e-2f84664b3ced",
+      "publisher": "Cronus",
+      "name": "Cronus.Base",
+      "version": "1.0.0.0"
+    }
+  ],
+  "screenshots": [],
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50149
+    }
+  ],
+  "contextSensitiveHelpUrl": "https://Cronus.Api.com/help/",
+  "showMyCode": true,
+  "runtime": "7.0"
+}

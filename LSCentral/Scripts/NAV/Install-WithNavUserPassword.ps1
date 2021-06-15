@@ -33,7 +33,7 @@ $Packages = @(
     @{ Id = 'ls-central-demo-database'; VersionQuery = $LsCentralVersion}
     @{ Id = 'bc-server'; VersionQuery = $BcVersion}
     @{ Id = 'ls-central-toolbox-server'; VersionQuery = $LsCentralVersion}
-    @{ Id = 'internal/ls-central-dev-license'; VersionQuery = ''}
+    @{ Id = 'ls-central-toolbox-client'; VersionQuery = $LsCentralVersion}
     @{ Id = 'bc-web-client'; VersionQuery = ''}
 )
  

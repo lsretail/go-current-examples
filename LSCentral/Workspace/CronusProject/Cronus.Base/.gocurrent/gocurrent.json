@@ -1,0 +1,218 @@
+{
+    "id": "cronus-base-app",
+    "name": "${alAppName}",
+    "description": "${alAppDescription}",
+    "version": {
+        "default": "${alAppVersion:Parts(3)}+${commit:maxLength(8)}",
+        "releaseCandidate": "${alAppVersion:Parts(3)}-rc.${buildNumber}+${commit:maxLength(8)}",
+        "dev": "${alAppVersion:Parts(3)}-${currentBranch:branchLabel}.${buildNumber}+${commit:maxLength(8)}"
+    },
+    "files": [
+        "${alAppProjectDir}\\${alAppPublisher}_${alAppName}_${alAppVersion}.app"
+    ],
+    "dependencies": [
+        {
+            "id": "bc-application",
+            "version": {
+                "alAppId": "application",
+                "alAppIdType": "fromMinor",
+                "alAppParts": 3
+            }
+        },
+        {
+            "id": "bc-system-symbols",
+            "version": {
+                "alAppId": "platform",
+                "alAppIdType": "fromMinor",
+                "alAppParts": 3
+            }
+        },
+        {
+            "id": "ls-central-app",
+            "version": {
+                "alAppParts": 3,
+                "alAppId": "5ecfc871-5d82-43f1-9c54-59685e82318d",
+                "alAppIdType": "fromMinor"
+            }
+        }
+    ],
+    "variables": {
+        "buildNumber": "0",
+        "commit": "0000",
+        "lsCentralVersion": {
+            "alAppId": "5ecfc871-5d82-43f1-9c54-59685e82318d",
+            "alAppIdType": "fromMinor",
+            "alAppParts": 3
+        },
+        "lsCentralFixedVersion": "18.1"
+    },
+    "devPackageGroups": [
+        {
+            "id": "149ede3e-02b8-45ab-8793-8adb2bf6f190",
+            "name": "LS Central - from app.json",
+            "description": "Install a new LS Central instance on your computer that matches your app.json config.",
+            "packages": [
+                {
+                    "id": "sql-server-express",
+                    "version": "^-",
+                    "optional": true
+                },
+                {
+                    "id": "ls-central-demo-database",
+                    "version": "- ${lsCentralVersion}"
+                },
+                {
+                    "$ref": "dependencies"
+                },
+                {
+                    "id": "bc-web-client",
+                    "version": ""
+                },
+                {
+                    "id": "ls-central-toolbox-server",
+                    "version": "${lsCentralVersion}"
+                },
+                {
+                    "id": "ls-dd-server-addin",
+                    "version": "^"
+                },
+                {
+                    "id": "map/ls-central-to-bc",
+                    "version": "${lsCentralVersion}"
+                }
+            ],
+            "arguments": {
+                "bc-server": {
+                    "AllowForceSync": "true",
+                    "DeveloperServicesEnabled": "true",
+                    "AllowSessionCallSuspendWhenWriteTransactionStarted": "true",
+                    "PublicWebBaseUrl": "http://localhost:8080/${Package.InstanceName}/"
+                }
+            }
+        },
+        {
+            "id": "9c1dd880-c186-4d65-85c0-2f0b3611462c",
+            "name": "LS Central - from app.json, existing DB",
+            "description": "Install a new LS Central instance on your computer and connect to existing DB.",
+            "packages": [
+                {
+                    "$ref": "dependencies"
+                },
+                {
+                    "id": "bc-web-client",
+                    "version": ""
+                },
+                {
+                    "id": "ls-central-toolbox-server",
+                    "version": "${lsCentralVersion}"
+                },
+                {
+                    "id": "ls-dd-server-addin",
+                    "version": "^"
+                },
+                {
+                    "id": "map/ls-central-to-bc",
+                    "version": "${lsCentralVersion}"
+                }
+            ],
+            "arguments": {
+                "bc-server": {
+                    "AllowForceSync": "true",
+                    "DeveloperServicesEnabled": "true",
+                    "AllowSessionCallSuspendWhenWriteTransactionStarted": "true",
+                    "PublicWebBaseUrl": "http://localhost:8080/${Package.InstanceName}/"
+                }
+            }
+        },
+        {
+            "id": "67f82e0c-e4f4-402d-97bb-8ddb7217c911",
+            "name": "LS Central - fixed version",
+            "description": "Install a new LS Central instance on your computer and connect to existing DB.",
+            "packages": [
+                {
+                    "id": "sql-server-express",
+                    "version": "^-",
+                    "optional": true
+                },
+                {
+                    "id": "ls-central-demo-database",
+                    "version": "- ${lsCentralFixedVersion}"
+                },
+                {
+                    "$ref": "dependencies"
+                },
+                {
+                    "id": "bc-web-client",
+                    "version": ""
+                },
+                {
+                    "id": "ls-central-toolbox-server",
+                    "version": ""
+                },
+                {
+                    "id": "ls-dd-server-addin",
+                    "version": "^"
+                },
+                {
+                    "id": "map/ls-central-to-bc",
+                    "version": "${lsCentralFixedVersion}"
+                }
+            ],
+            "arguments": {
+                "bc-server": {
+                    "AllowForceSync": "true",
+                    "DeveloperServicesEnabled": "true",
+                    "AllowSessionCallSuspendWhenWriteTransactionStarted": "true",
+                    "PublicWebBaseUrl": "http://localhost:8080/${Package.InstanceName}/"
+                }
+            }
+        },
+        {
+            "id": "33545155-48d5-424d-a1a9-d5863800d879",
+            "name": "LS Central - latest",
+            "description": "Install the latest version of LS Central on your computer.",
+            "packages": [
+                {
+                    "id": "sql-server-express",
+                    "version": "^-",
+                    "optional": true
+                },
+                {
+                    "id": "ls-central-demo-database",
+                    "version": "- ${lsCentralVersion}"
+                },
+                {
+                    "$ref": "dependencies"
+                },
+                {
+                    "id": "bc-web-client",
+                    "version": ""
+                },
+                {
+                    "id": "ls-central-toolbox-server",
+                    "version": "^"
+                },
+                {
+                    "id": "ls-central-app",
+                    "version": "^"
+                },
+                {
+                    "id": "ls-dd-server-addin",
+                    "version": "^"
+                },
+                {
+                    "id": "map/ls-central-to-bc",
+                    "version": "^"
+                }
+            ],
+            "arguments": {
+                "bc-server": {
+                    "AllowForceSync": "true",
+                    "DeveloperServicesEnabled": "true",
+                    "AllowSessionCallSuspendWhenWriteTransactionStarted": "true",
+                    "PublicWebBaseUrl": "http://localhost:8080/${Package.InstanceName}/"
+                }
+            }
+        }
+    ]
+}

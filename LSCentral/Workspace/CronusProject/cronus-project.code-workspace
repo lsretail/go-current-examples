@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "Cronus.Base"
+		},
+		{
+			"path": "Cronus.Api"
+		},
+		{
+			"path": "Build"
+		},
+		{
+			"path": "Scripts"
+		}
+	],
+	"settings": {}
+}

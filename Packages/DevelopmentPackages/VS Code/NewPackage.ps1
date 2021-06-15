@@ -49,7 +49,7 @@ function New-VsCodePackageFromWeb
         [switch] $Import
     )
 
-    $Uri = 'https://vscode-update.azurewebsites.net/latest/win32-x64/stable'
+    $Uri = 'https://code.visualstudio.com/sha/download?build=stable&os=win32-x64'
 
     $Path = Join-Path $OutputDir 'vscode.exe'
     if ($Force -and (Test-Path $Path))

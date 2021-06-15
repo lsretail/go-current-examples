@@ -1,0 +1,41 @@
+{
+    "id": "cronus-api-app",
+    "name": "${alAppName}",
+    "description": "${alAppDescription}",
+    "version": {
+        "default": "${alAppVersion:Parts(3)}+${commit:maxLength(8)}",
+        "releaseCandidate": "${alAppVersion:Parts(3)}-rc.${buildNumber}+${commit:maxLength(8)}",
+        "dev": "${alAppVersion:Parts(3)}-${currentBranch:branchLabel}.${buildNumber}+${commit:maxLength(8)}"
+    },
+    "files": [
+        "${alAppProjectDir}\\${alAppPublisher}_${alAppName}_${alAppVersion}.app"
+    ],
+    "variables": {
+        "buildNumber": "0",
+        "commit": "0000",
+        "lsCentralVersion": {
+            "alAppId": "platform",
+            "alAppIdType": "fromMinor",
+            "alAppParts": 3
+        },
+        "baseAppVersion": {
+            "alAppParts": 4,
+            "alAppId": "c61cfd91-3499-4912-989e-2f84664b3ced",
+            "alAppIdType": "fromMinor"
+        }
+    },
+    "dependencies": [
+        {
+            "id": "cronus-base-app",
+            "version": {
+                "default": {
+                    "alAppParts": 4,
+                    "alAppId": "c61cfd91-3499-4912-989e-2f84664b3ced",
+                    "alAppIdType": "fromMinor"
+                },
+                "releaseCandidate": "${baseAppVersion}-rc.${buildNumber}",
+                "dev": "${baseAppVersion}-${currentBranch:branchLabel}.${buildNumber}"
+            }
+        }
+    ]
+}

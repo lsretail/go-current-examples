@@ -1,0 +1,33 @@
+{
+    "id": "c61cfd91-3499-4912-989e-2f84664b3ced",
+    "name": "Cronus.Base",
+    "publisher": "Cronus",
+    "version": "1.0.0.0",
+    "brief": "",
+    "description": "",
+    "privacyStatement": "",
+    "EULA": "",
+    "help": "",
+    "url": "",
+    "logo": "",
+    "dependencies": [
+        {
+            "id": "5ecfc871-5d82-43f1-9c54-59685e82318d",
+            "name": "LS Central",
+            "publisher": "LS Retail",
+            "version": "18.0.0.0"
+        }
+    ],
+    "screenshots": [],
+    "platform": "1.0.0.0",
+    "application": "18.0.0.0",
+    "idRanges": [
+        {
+            "from": 50100,
+            "to": 50149
+        }
+    ],
+    "contextSensitiveHelpUrl": "https://Cronus.Base.com/help/",
+    "showMyCode": true,
+    "runtime": "7.0"
+}
