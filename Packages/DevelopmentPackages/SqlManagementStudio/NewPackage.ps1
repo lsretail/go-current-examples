@@ -1,6 +1,5 @@
 $ErrorActionPreference = 'stop'
 
-Import-Module (Join-Path $PSScriptRoot '..\..\Sql\SqlPackages.psm1')
 Import-Module GoCurrentServer
 
 function New-SqlStudioPackageFromWeb
@@ -26,6 +25,7 @@ function New-SqlStudioPackageFromWeb
    
     if ($Force -or !(Test-GocsPackage -Id 'sql-management-studio' -Version $Version -Server $Server -Port $Port))
     {
-        New-SqlManagementStudioPackage -SetupPath $Path -OutputDir $OutputDir -Force:$Force -Import:$Import -Server $Server -Port $Port
+        $Script = (Join-Path $PSScriptRoot '..\..\Sql\NewSqlStudioManagementPackage.ps1')
+        & $Script -SetupPath $Path -OutputDir $OutputDir -Force:$Force -Import:$Import -Server $Server -Port $Port
     }
 }
