@@ -40,10 +40,12 @@ if (!$SetupPath)
 $NamePostfix = ''
 $EditionPostfix = ''
 $InstanceName = ''
+$SetupFileName = 'setup.exe'
 if ($Edition -eq 'Express')
 {
     $NamePostfix = ' Express'
     $EditionPostfix = '-express'
+    $SetupFileName = 'SQLEXPR_x64_ENU.EXE'
     $InstanceName = 'SQLEXPRESS'
 }
 elseif ($Edition -eq 'Developer')
@@ -56,7 +58,7 @@ $SqlPackage = @{
     Id = "sql-server$EditionPostfix"
     Name = "Microsoft SQL Server$NamePostfix"
     Description = "A relational database management system."
-    Version = (Join-Path $SetupDir 'setup.exe')
+    Version = (Join-Path $SetupDir $SetupFileName)
     InputPath = @(
         (Join-Path $SetupDir '*'),
         (Join-Path (Join-Path $PSScriptRoot 'sql-server') '*')

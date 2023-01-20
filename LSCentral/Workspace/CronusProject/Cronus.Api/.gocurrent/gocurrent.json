@@ -10,6 +10,7 @@
     "files": [
         "${alAppProjectDir}\\${alAppPublisher}_${alAppName}_${alAppVersion}.app"
     ],
+    "alIncludeServerAssemblies": false,
     "variables": {
         "buildNumber": "0",
         "commit": "0000",

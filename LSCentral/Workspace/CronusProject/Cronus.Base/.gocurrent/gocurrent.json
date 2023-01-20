@@ -10,6 +10,7 @@
     "files": [
         "${alAppProjectDir}\\${alAppPublisher}_${alAppName}_${alAppVersion}.app"
     ],
+    "alIncludeServerAssemblies": false,
     "dependencies": [
         {
             "id": "bc-application",
