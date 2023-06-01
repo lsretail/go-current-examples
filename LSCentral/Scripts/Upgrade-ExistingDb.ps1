@@ -4,7 +4,7 @@
         Upgrade existing database with new versions of Business Central and LS Central.
     
     .DESCRIPTION
-        This is an example of how you can use Go Current to upgrade your 
+        This is an example of how you can use Update Service to upgrade your 
         existing database, with a new Business Central platform, apps and 
         LS Central. You can extend this with your own apps as well.
 
@@ -14,36 +14,33 @@
 
         Requirements for the existing databases:
         * Is running LS Central/Business Central 15.0 or above.
-        * Database's platform version is the same or earlier version than the POS bundle will install.
+        * Database's platform version is the same or earlier version than the script will install.
         * All apps in the existing database are of the same version or earlier than listed in this script.
 
         Steps:
 
         1. Either:
             * Restore a database backup on your SQL server.
-            * Backup existing database before running the upgrade, Go Current will not create a backup.
+            * Backup existing database before running the upgrade, Update Service will not create a backup.
         2. Adjust the parameters:
             * ConnectionString: Connection string for your database.
+            * BcPlatformVersion: The BC platform version of the database, before the upgrade.
             * LsCentralVersion: Your target LS Central version.
-            * BcAppVersion: Your target Business Central (app) version.
-            * InstanceName: Name for your GoC instance and service tier created.
-            * LicensePath: Optional, path to a new license file (.flf).
+            * BcAppVersion: Your target Business Central (app) version. 
+                * If not specified then default LSC version is used.
+            * InstanceName: Name for your Update Service instance and service tier created.
+            * LicensePath: Optional, path to a new license file (.flf/.bclinese).
             (See note below)
         3. Run script.
-
-        NOTE: If you are upgrading from a version earlier then 17.0.0, you must allow force schema changes.
-              See comment below for further instructions.
 #>
-
 param(
-    $ConnectionString = "Data Source=LOCALHOST;Initial Catalog=YOUR-DB;Integrated Security=True",
-    $LsCentralVersion = '17.1',
-    $BcAppVersion = '17.1',
+    $ConnectionString = 'Data Source=${System.SqlServerInstance};Initial Catalog=${Package.InstanceName};Integrated Security=True',
+    $BcPlatformVersion = '18.0',
+    $TargetLsCentralVersion = '22.1',
     $InstanceName = 'Upgrade',
     $LicensePath
 )
-
-Import-Module GoCurrent
+$ErrorActionPreference = 'stop'
 
 $Arguments = @{
     'bc-server' = @{
@@ -51,21 +48,25 @@ $Arguments = @{
         AllowSessionCallSuspendWhenWriteTransactionStarted = 'true'
         LicenseUri = $LicensePath
     }
-    # Uncomment if you are upgrading from version earlier then 17.0.0.
-    #'ls-central-app-runtime' = @{
-    #    AllowForceSync = 'true'
-    #}
 }
 
+# Install a service tier maching the database version.
 $Packages = @(
-    @{ Id = 'bc-system-symbols'; Version = '' }
-    @{ Id = 'bc-system-application-runtime'; Version = $BcAppVersion }
-    @{ Id = 'bc-base-application-runtime'; Version = $BcAppVersion }
-    @{ Id = 'bc-application-runtime'; Version = $BcAppVersion }
-    @{ Id = 'map/bc-app-to-platform'; Version = $BcAppVersion }
-    @{ Id = 'ls-central-app-runtime'; Version = $LsCentralVersion }
+    @{ Id = 'bc-server'; Version = $BcPlatformVersion }
+)
+
+$Packages | Install-UscPackage -InstanceName $InstanceName -Arguments $Arguments
+
+# Upgrade to the specified LS Central version:
+$Packages = @(
+    @{ Id = 'bc-server'; Version = '' }
+    @{ Id = 'bc-system-application-runtime'; Version = '' }
+    @{ Id = 'bc-base-application-runtime'; Version = '' }
+    @{ Id = 'bc-application-runtime'; Version = '' }
+    @{ Id = 'map/ls-central-to-bc'; Version = $TargetLsCentralVersion }
+    @{ Id = 'ls-central-app-runtime'; Version = $TargetLsCentralVersion }
     # Optional, uncomment to include:
     #@{ Id = 'bc-web-client'; Version = '' }
 )
 
-$Packages | Install-GocPackage -InstanceName $InstanceName -Arguments $Arguments
+$Packages | Install-UscPackage -InstanceName $InstanceName -Arguments $Arguments -UpdateInstance

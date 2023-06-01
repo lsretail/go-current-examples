@@ -14,7 +14,7 @@
         The script will create self-signed certificates.
 #>
 $ErrorActionPreference = 'stop'
-Import-Module GoCurrent
+
 $Arguments = @{
     'bc-server' = @{
         DeveloperServicesEnabled = 'true'
@@ -37,13 +37,11 @@ $Packages = @(
     @{ Id = "my-private-certificate"; Version = "" }
 
     @{ Id = 'ls-central-demo-database'; Version = '' }
-    @{ Id = 'bc-server'; Version = '' }
     @{ Id = 'bc-web-client'; Version = '' }
-    @{ Id = 'bc-system-symbols'; Version = '' }
     @{ Id = 'bc-system-application-runtime'; Version = '' }
     @{ Id = 'bc-base-application-runtime'; Version = '' }
     @{ Id = 'ls-central-app-runtime'; Version = '' }
     @{ Id = 'map/ls-central-to-bc'; Version = '' }
 )
  
-$Packages | Install-GocPackage -InstanceName 'LSCentral' -UpdateStrategy 'Manual' -Arguments $Arguments
+$Packages | Install-UscPackage -InstanceName 'LSCentral' -UpdateStrategy 'Manual' -Arguments $Arguments

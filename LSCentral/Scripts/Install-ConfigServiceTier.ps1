@@ -4,7 +4,6 @@
         Install LS Central with various settings.
 #>
 $ErrorActionPreference = 'stop'
-Import-Module GoCurrent
 
 $Arguments = @{
     'bc-server' = @{
@@ -87,13 +86,11 @@ $Packages = @(
     # Uncomment to install SQL Express:
     #@{ Id = 'sql-server-express'; VersionQuery = '^-'}
     @{ Id = 'ls-central-demo-database'; Version = '' }
-    @{ Id = 'bc-server'; Version = '' }
     @{ Id = 'bc-web-client'; Version = '' }
-    @{ Id = 'bc-system-symbols'; Version = '' }
     @{ Id = 'bc-system-application-runtime'; Version = '' }
     @{ Id = 'bc-base-application-runtime'; Version = '' }
     @{ Id = 'ls-central-app-runtime'; Version = '' }
     @{ Id = 'map/ls-central-to-bc'; Version = '' }
 )
 
-$Packages | Install-GocPackage -Arguments $Arguments -InstanceName 'LSCentral'
+$Packages | Install-UscPackage -Arguments $Arguments -InstanceName 'LSCentral'

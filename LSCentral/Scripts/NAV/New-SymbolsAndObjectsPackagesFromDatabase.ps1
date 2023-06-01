@@ -10,7 +10,7 @@
             3. Create an app package from the symbols app.
             4. Export all objects to a FOB file.
             5. Create an objects package from the FOB file.
-            6. If specified, the packages are imported into a Go Current server.
+            6. If specified, the packages are imported into a Update Service server.
 
         You might want to adjust the package names in the script as well the dependencies to your requirements.
 
@@ -35,7 +35,7 @@
         This example will install a new service-tier/NST instance (v14.0.35916.0) called "MyInstance", connected to the database "MyDatabase".
         It will generate and export symbols and objects into the output directory and create two packages, my-application-symbols and my-objects of version 1.0.0.
         All output files will be put into c:\Temp\OutputDir and all existing files will be overwritten.
-        The packages are imported to a Go Current server on localhost.
+        The packages are imported to a Update Service server on localhost.
 
     .NOTES
         The database must already have a valid license.
@@ -61,7 +61,6 @@ param(
 
 $ErrorActionPreference = 'stop'
 
-Import-Module GoCurrent
 Import-Module LsPackageTools\ObjectPackageCreator
 Import-Module LsPackageTools\AppPackageCreator
 
@@ -79,7 +78,7 @@ $Packages = @(
     @{ Id = 'bc-server'; Version = $BcVersion}
 )
 
-$Packages | Install-GocPackage -InstanceName $InstanceName -Arguments $Arguments -UpdateInstance
+$Packages | Install-UscPackage -InstanceName $InstanceName -Arguments $Arguments -UpdateInstance
 
 $SymbolsPath = Join-Path $OutputDir 'Symbols.app'
 $ObjectsPath = Join-Path $OutputDir 'Objects.fob'
@@ -127,9 +126,9 @@ $Package = @{
     )
 }
 
-$Packages += New-AppPackage @Package -Force:$Force | Import-GocsPackage -Force:$Force
+$Packages += New-AppPackage @Package -Force:$Force | Import-UssPackage -Force:$Force
 
 if ($Import)
 {
-    $Packages | Import-GocsPackage -Server $Server -Port $Port -Force:$Force
+    $Packages | Import-UssPackage -Server $Server -Port $Port -Force:$Force
 }

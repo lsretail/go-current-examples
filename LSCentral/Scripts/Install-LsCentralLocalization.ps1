@@ -1,9 +1,11 @@
-﻿$ErrorActionPreference = 'stop'
-Import-Module GoCurrent
+﻿param(
+    $LsCentralVersion = '21.5',
+    $LocalizationCode = 'DK'
+)
+$ErrorActionPreference = 'stop'
 
 $Arguments = @{
     'bc-server' = @{
-        AllowForceSync = 'true'
         AllowSessionCallSuspendWhenWriteTransactionStarted = 'true'
     }
     'ls-central-demo-database' = @{
@@ -11,28 +13,13 @@ $Arguments = @{
     }
 }
 
-$LsVersion = '17.1'
-$LocalizationCode = 'DK'.ToUpper()
+$LocalizationCode = $LocalizationCode.ToUpper()
 $LocalizationCodeLower = $LocalizationCode.ToLower()
 
 $Packages = @(
-    @{ Id = 'ls-central-demo-database'; VersionQuery = $LsVersion }
-
-    @{ Id = 'bc-system-symbols'; VersionQuery = '^'}
-    @{ Id = "bc-base-application-$LocalizationCodeLower"; VersionQuery = '^'}
-
-    @{ Id = 'ls-central-app'; VersionQuery = $LsVersion }
-
-    @{ Id = "ls-central-app-$LocalizationCodeLower"; VersionQuery = $LsVersion }
-
-    @{ Id = 'ls-central-toolbox-server'; VersionQuery = $LsVersion }
-    @{ Id = 'map/ls-central-to-bc'; VersionQuery = $LsVersion }
-
+    @{ Id = 'ls-central-demo-database'; VersionQuery = $LsCentralVersion }
+    @{ Id = "locale/ls-central-$LocalizationCodeLower-runtime"; VersionQuery = $LsCentralVersion }
     @{ Id = 'bc-web-client'; VersionQuery = ''}
-    @{ Id = 'dev/ls-central-setup-script'; VersionQuery = ''}
 )
- 
-# View what packages will be installed:
-# $Packages | Get-GocUpdates
 
-$Packages | Install-GocPackage -InstanceName "LSCentral$LocalizationCode" -UpdateStrategy 'Manual' -Arguments $Arguments
+$Packages | Install-UscPackage -InstanceName "LSCentral$LocalizationCode" -UpdateStrategy 'Manual' -Arguments $Arguments

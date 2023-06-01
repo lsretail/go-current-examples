@@ -9,7 +9,6 @@
         create a new company in you new database.
 #>
 $ErrorActionPreference = 'stop'
-Import-Module GoCurrent
 
 $Arguments = @{
     'bc-server' = @{
@@ -32,13 +31,20 @@ $Packages = @(
 
 $InstanceName = 'LSCentral'
 
-$Packages | Install-GocPackage -InstanceName $InstanceName -Arguments $Arguments
+$Packages | Install-UscPackage -InstanceName $InstanceName -Arguments $Arguments
 
 # Get information about our newly installed instance:
-$BcServer = Get-GocInstalledPackage -Id 'bc-server' -InstanceName $InstanceName
+$BcServer = Get-UscInstalledPackage -Id 'bc-server' -InstanceName $InstanceName
 
 # Import the Business Central management cmdlets:
-Import-Module (Join-Path $BcServer.Info.ServerDir 'Microsoft.Dynamics.Nav.Management.dll')
+if (Test-Path (Join-Path $BcServer.Info.ServerDir 'Management\Microsoft.Dynamics.Nav.Management.dll'))
+{
+    Import-Module (Join-Path $BcServer.Info.ServerDir 'Management\Microsoft.Dynamics.Nav.Management.dll')
+}
+else
+{
+    Import-Module (Join-Path $BcServer.Info.ServerDir 'Microsoft.Dynamics.Nav.Management.dll')
+}
 
 # Create a new company:
-New-NAVCompany -CompanyName 'GoCurrent' -ServerInstance $BcServer.Info.ServerInstance
+New-NAVCompany -CompanyName 'UpdateService' -ServerInstance $BcServer.Info.ServerInstance

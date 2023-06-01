@@ -1,5 +1,4 @@
 $ErrorActionPreference = 'stop'
-Import-Module GoCurrent
 
 $InstanceName = 'LSCentral14'
 $UserName = 'admin'
@@ -21,7 +20,7 @@ $Arguments = @{
 }
 
 $LsCentralVersion = '14.01'
-$BcVersion = (Get-GocUpdates -Id 'ls-central-objects' -Version $LsCentralVersion | Where-Object { $_.Id -eq 'bc-server'}).Version
+$BcVersion = (Get-UscUpdates -Id 'ls-central-objects' -Version $LsCentralVersion | Where-Object { $_.Id -eq 'bc-server'}).Version
 
 $Packages = @(
     # Optional, uncomment to include:
@@ -37,11 +36,11 @@ $Packages = @(
     @{ Id = 'bc-web-client'; VersionQuery = ''}
 )
  
-$Packages | Install-GocPackage -InstanceName $InstanceName -UpdateStrategy 'Manual' -Arguments $Arguments -UpdateInstance
+$Packages | Install-UscPackage -InstanceName $InstanceName -UpdateStrategy 'Manual' -Arguments $Arguments -UpdateInstance
 
 # Create NAV user:
 
-$Installed = Get-GocInstalledPackage -Id 'bc-server' -InstanceName $InstanceName
+$Installed = Get-UscInstalledPackage -Id 'bc-server' -InstanceName $InstanceName
 
 $ServerInstance = $Installed.Info.ServerInstance
 
