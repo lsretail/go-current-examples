@@ -66,12 +66,15 @@ $SqlPackage = @{
     OutputDir = $OutputDir
     Commands = @{
         Install = 'Package.psm1:Install-Package'
+        Update = 'Package.psm1:Update-Package'
     }
     Parameters = @(
         @{ Description = 'Arguments for installer'; Key = 'Arguments'; Hidden = $true }
         @{ Description = 'SQL Server Instance Name'; Key = 'InstanceName'; Default = $InstanceName; Hint ="Leave empty for default instance `"MSSQLSERVER`"." }
         @{ Description = 'Features'; Key = "Features"; Default = "SqlOnly"; Widget = 'Dropdown'; Labels = @('All Features', 'SQL Server Only'); Values = @('All', 'SqlOnly') }
         @{ Description = 'Admin User'; Key = 'AdminUser'; Default = ''; Hint = "On the form DOMAIN\USER. Leave empty for current user."}
+        @{ Description = 'SQL Authentication'; Key = 'UseSecurityModeSql'; Default = 'false'; Hint = "Use SQL server and Windows authentication mode."; Widget = 'Checkbox' }
+        @{ Description = 'SA Password'; Key = 'SaPassword'; Default = ''; Hint = "Required for SQL Authentication."; Widget = 'Password' }
     )
     WindowsUpdateSensitive = $true
     FillParameters = @{

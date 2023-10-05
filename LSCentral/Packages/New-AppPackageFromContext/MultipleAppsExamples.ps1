@@ -115,3 +115,42 @@ $ApiAppPath | New-AppPackageFromContext @Arguments -Force
 # But a map, -AppToPackageMap is specified, which allows the function to create
 # a dependency between them.
 # This is useful if an app is not available in a particular process.
+
+### EXAMPLE 6 #######################################
+# Include AppMetadata and ExtraDependencies in map.
+# Available in ls-package-tools v0.9.0 and later.
+
+$Map = @{
+    "c61cfd91-3499-4912-989e-2f84664b3ced" = @{
+        Id = "example-6-base-app"
+        Name = "Example 6 Base App"
+        Parts = 3
+        ExtraDependencies = @(
+            # If the app uses a DOTNET add-in, you can specify the it's package ID and minimum version.
+            @{ Id = 'example-addin'; VersionQuery = '>=1.0.0'}
+        )
+    }
+    "6ed20322-04fc-4668-91a4-1388e8470eb0" = @{
+        Id = 'example-6-api-app'
+        Name = "Example 6 Api App"
+        Parts = 3
+        AppMetadata = @{
+            # To allow Update Service to force breaking schema changes, you can specify a
+            # version of the app that introduces the breaking changes.
+            ForceVersion = '1.0.0'
+        }
+    }
+}
+
+$Arguments = @{
+    OutputDir = $OutputDir
+    AppToPackageMap = $Map
+}
+
+$ApiAppPath | New-AppPackageFromContext @Arguments -Force
+
+# This example does the same as example 4, except it only supplies a path for
+# Cronus.Api app (only creates a package for Cronus.Api).
+# But a map, -AppToPackageMap is specified, which allows the function to create
+# a dependency between them.
+# This is useful if an app is not available in a particular process.
