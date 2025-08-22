@@ -2,14 +2,14 @@
 <#
     .SYNOPSIS
         Upgrade existing database with new versions of Business Central and LS Central.
-    
+
     .DESCRIPTION
-        This is an example of how you can use Update Service to upgrade your 
-        existing database, with a new Business Central platform, apps and 
+        This is an example of how you can use Update Service to upgrade your
+        existing database, with a new Business Central platform, apps and
         LS Central. You can extend this with your own apps as well.
 
-        You must have a database is place on a SQL server, then use this 
-        script to install a new service tier / NST, with the target 
+        You must have a database is place on a SQL server, then use this
+        script to install a new service tier / NST, with the target
         BC platform version and with selected apps.
 
         Requirements for the existing databases:
@@ -26,7 +26,7 @@
             * ConnectionString: Connection string for your database.
             * BcPlatformVersion: The BC platform version of the database, before the upgrade.
             * LsCentralVersion: Your target LS Central version.
-            * BcAppVersion: Your target Business Central (app) version. 
+            * BcAppVersion: Your target Business Central (app) version.
                 * If not specified then default LSC version is used.
             * InstanceName: Name for your Update Service instance and service tier created.
             * LicensePath: Optional, path to a new license file (.flf/.bclinese).
@@ -35,8 +35,8 @@
 #>
 param(
     $ConnectionString = 'Data Source=${System.SqlServerInstance};Initial Catalog=${Package.InstanceName};Integrated Security=True',
-    $BcPlatformVersion = '18.0',
-    $TargetLsCentralVersion = '22.1',
+    $BcPlatformVersion = '22.0',
+    $TargetLsCentralVersion = '25.1',
     $InstanceName = 'Upgrade',
     $LicensePath
 )
@@ -59,10 +59,7 @@ $Packages | Install-UscPackage -InstanceName $InstanceName -Arguments $Arguments
 
 # Upgrade to the specified LS Central version:
 $Packages = @(
-    @{ Id = 'bc-server'; Version = '' }
-    @{ Id = 'bc-system-application-runtime'; Version = '' }
-    @{ Id = 'bc-base-application-runtime'; Version = '' }
-    @{ Id = 'bc-application-runtime'; Version = '' }
+    @{ Id = 'bc-application'; Version = '' }
     @{ Id = 'map/ls-central-to-bc'; Version = $TargetLsCentralVersion }
     @{ Id = 'ls-central-app-runtime'; Version = $TargetLsCentralVersion }
     # Optional, uncomment to include:

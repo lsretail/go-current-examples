@@ -2,10 +2,10 @@
 <#
     .SYNOPSIS
         Install LS Central with NavUserPassword and necessary certificate.
-    
+
     .DESCRIPTION
         This will install LS Central configured to use NavUserPassword and installs
-        self-signed certificates. 
+        self-signed certificates.
 
         The certificate packages can be created by running the script:
 
@@ -38,10 +38,9 @@ $Packages = @(
 
     @{ Id = 'ls-central-demo-database'; Version = '' }
     @{ Id = 'bc-web-client'; Version = '' }
-    @{ Id = 'bc-system-application-runtime'; Version = '' }
-    @{ Id = 'bc-base-application-runtime'; Version = '' }
+    @{ Id = 'bc-application'; Version = '' }
     @{ Id = 'ls-central-app-runtime'; Version = '' }
     @{ Id = 'map/ls-central-to-bc'; Version = '' }
 )
- 
+
 $Packages | Install-UscPackage -InstanceName 'LSCentral' -UpdateStrategy 'Manual' -Arguments $Arguments

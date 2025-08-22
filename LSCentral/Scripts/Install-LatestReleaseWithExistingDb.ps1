@@ -5,7 +5,7 @@
 
     .PARAMETER ConnectionString
         Specifies a connection string for existing database.
-    
+
     .PARAMETER ServiceUser
         Specifies a Windows users that run the Business Central service.
         The user must have access and db_owner permissions to the existing database.
@@ -41,13 +41,10 @@ $Arguments = @{
 }
 
 $Packages = @(
-    @{ Id = 'bc-server'; Version = '' }
     @{ Id = 'bc-web-client'; Version = '' }
-    @{ Id = 'bc-system-symbols'; Version = '' }
-    @{ Id = 'bc-system-application-runtime'; Version = '' }
-    @{ Id = 'bc-base-application-runtime'; Version = '' }
+    @{ Id = 'bc-application'; Version = '' }
     @{ Id = 'ls-central-app-runtime'; Version = '' }
     @{ Id = 'map/ls-central-to-bc'; Version = '' }
 )
- 
+
 $Packages | Install-UscPackage -InstanceName $InstanceName -Arguments $Arguments

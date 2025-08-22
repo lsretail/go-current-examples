@@ -2,10 +2,10 @@
 <#
     .SYNOPSIS
         Install LS Central and create an empty database with a new company in the process.
-    
+
     .DESCRIPTION
         This script will install LS Central and create a new empty database in the prcess.
-        After the installation it will load the Business Central management module and 
+        After the installation it will load the Business Central management module and
         create a new company in you new database.
 #>
 $ErrorActionPreference = 'stop'
@@ -20,11 +20,8 @@ $Arguments = @{
 $Packages = @(
     # Optional, uncomment to include:
     #@{ Id = 'sql-server-express'; VersionQuery = '^-'}
-    @{ Id = 'bc-server'; Version = '' }
     @{ Id = 'bc-web-client'; Version = '' }
-    @{ Id = 'bc-system-symbols'; Version = '' }
-    @{ Id = 'bc-system-application-runtime'; Version = '' }
-    @{ Id = 'bc-base-application-runtime'; Version = '' }
+    @{ Id = 'bc-application'; Version = '' }
     @{ Id = 'ls-central-app-runtime'; Version = '' }
     @{ Id = 'map/ls-central-to-bc'; Version = '' }
 )

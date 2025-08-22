@@ -14,7 +14,7 @@ $Arguments = @{
         LicenseUri = ''
         # Specify true to create a database on installation:
         NewDatabase = 'False'
-        # Specifies if installation can or cannot make database change (such 
+        # Specifies if installation can or cannot make database change (such
         # as import license, apps or do platform upgrade):
         NoDatabaseUpgrades = 'False'
         # Specifies if destructive schema synchronization can be forced:
@@ -49,8 +49,8 @@ $Arguments = @{
         NASServicesStartupCodeunit = ''
         NASServicesStartupMethod = ''
         NASServicesStartupArgument = ''
-        # Any additional settings that are not supported as parameters on the 
-        # package can be specified as a JSON string with the "SettingsJson" 
+        # Any additional settings that are not supported as parameters on the
+        # package can be specified as a JSON string with the "SettingsJson"
         # parameter, as following (CustomSettings.config):
         SettingsJson = (@{
             SqlCommandTimeout = '01:30:00'
@@ -71,8 +71,8 @@ $Arguments = @{
         ClientServicesCredentialType = 'Windows'
         DnsIdentity = ''
         CertificateThumbprint = ''
-        # Any additional settings that are not supported as parameters on the 
-        # package can be specified as a JSON string with the "SettingsJson" 
+        # Any additional settings that are not supported as parameters on the
+        # package can be specified as a JSON string with the "SettingsJson"
         # parameter, as following (navsettings.json):
         SettingsJson = (@{
             SessionTimeout = '01:30:00'
@@ -87,8 +87,7 @@ $Packages = @(
     #@{ Id = 'sql-server-express'; VersionQuery = '^-'}
     @{ Id = 'ls-central-demo-database'; Version = '' }
     @{ Id = 'bc-web-client'; Version = '' }
-    @{ Id = 'bc-system-application-runtime'; Version = '' }
-    @{ Id = 'bc-base-application-runtime'; Version = '' }
+    @{ Id = 'bc-application'; Version = '' }
     @{ Id = 'ls-central-app-runtime'; Version = '' }
     @{ Id = 'map/ls-central-to-bc'; Version = '' }
 )
