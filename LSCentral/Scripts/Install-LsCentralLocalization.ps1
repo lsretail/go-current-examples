@@ -18,6 +18,7 @@ $LocalizationCodeLower = $LocalizationCode.ToLower()
 
 $Packages = @(
     @{ Id = 'ls-central-demo-database'; VersionQuery = $LsCentralVersion }
+    @{ Id = "map/ls-central-to-bc"; VersionQuery = $LsCentralVersion }
     @{ Id = "locale/ls-central-$LocalizationCodeLower-runtime"; VersionQuery = $LsCentralVersion }
     @{ Id = 'bc-web-client'; VersionQuery = ''}
 )
