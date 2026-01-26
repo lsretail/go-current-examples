@@ -19,6 +19,15 @@ $Arguments = @{
         NoDatabaseUpgrades = 'False'
         # Specifies if destructive schema synchronization can be forced:
         AllowForceSync = 'false'
+        # Specifies if destructive schema synchronization can be forced on tenant level:
+        AllowTenantForceSync = 'false'
+        # Specifies if the same app version can be installed again:
+        AllowInstallSameAppVersion = 'false'
+        # Connection string to the database:
+        ConnectionString = '"Data Source=${System.SqlServerInstance};Initial Catalog=${Package.InstanceName};Integrated Security=true'
+        # Database backup method (None, Local, Snapshot):
+        # See https://help.updateservice.lsretail.com/docs/ls-central/database-backups.html for details.
+        DatabaseBackupMethod = 'Local'
 
         ### Business Central settings:
         AllowSessionCallSuspendWhenWriteTransactionStarted = 'true'
@@ -33,6 +42,7 @@ $Arguments = @{
         SOAPServicesSSLEnabled = 'False'
         ODataServicesPort = '9048'
         ODataServicesEnabled = 'True'
+        ODataServicesV4EndpointEnabled = 'True'
         ODataServicesSSLEnabled = 'False'
         DeveloperServicesPort = '9049'
         DeveloperServicesEnabled = 'False'
@@ -49,6 +59,12 @@ $Arguments = @{
         NASServicesStartupCodeunit = ''
         NASServicesStartupMethod = ''
         NASServicesStartupArgument = ''
+        ManagementApiServicesPort = '9086' # Added in BC 21.0
+        ManagementApiServicesEnabled = 'True' # Added in BC 21.0
+        ManagementApiServicesSSLEnabled = 'False' # Added in BC 21.0
+        ClientServicesSSLEnabled = 'False' # Added in BC 21.0
+        ValidAudiences = ''
+        ADOpenIdMetadataLocation = ''
         # Any additional settings that are not supported as parameters on the
         # package can be specified as a JSON string with the "SettingsJson"
         # parameter, as following (CustomSettings.config):
