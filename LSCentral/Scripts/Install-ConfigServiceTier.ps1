@@ -6,6 +6,10 @@
 $ErrorActionPreference = 'stop'
 
 $Arguments = @{
+    'sql-server-express-advanced' = @{
+        # Set the SQL server service startup type:
+        ServiceStartupType = 'Default' # Any of: Default, Automatic, AutomaticDelayedStart, Manual, Disabled
+    }
     'bc-server' = @{
         ### Package settings:
         # Enable port sharing:
@@ -28,6 +32,12 @@ $Arguments = @{
         # Database backup method (None, Local, Snapshot):
         # See https://help.updateservice.lsretail.com/docs/ls-central/database-backups.html for details.
         DatabaseBackupMethod = 'Local'
+        # Service startup type (Automatic, AutomaticDelayedStart, Manual, Disabled):
+        ServiceStartupType = 'Automatic'
+        # Additional services that the BC service depends on:
+        ServiceDependsOn = '' # Comma separated list, e.g. 'MSSQLSERVER,MSSQL$SQLEXPRESS'
+        # Whether to restart the service upon completion of installation or update:
+        RestartServiceOnCompletion = 'False'
 
         ### Business Central settings:
         AllowSessionCallSuspendWhenWriteTransactionStarted = 'true'
@@ -100,7 +110,7 @@ $Arguments = @{
 
 $Packages = @(
     # Uncomment to install SQL Express:
-    #@{ Id = 'sql-server-express'; VersionQuery = '^-'}
+    #@{ Id = 'sql-server-express-advanced'; VersionQuery = '^-'}
     @{ Id = 'ls-central-demo-database'; Version = '' }
     @{ Id = 'bc-web-client'; Version = '' }
     @{ Id = 'bc-application'; Version = '' }
