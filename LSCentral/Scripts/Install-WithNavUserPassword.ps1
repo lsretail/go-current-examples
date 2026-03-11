@@ -15,6 +15,14 @@
 #>
 $ErrorActionPreference = 'stop'
 
+function ConvertTo-EncryptedString
+{
+    param([string]$PlainText)
+    
+    $secureString = ConvertTo-SecureString $PlainText -AsPlainText -Force
+    return (ConvertFrom-SecureString $secureString).ToString()
+}
+
 $Arguments = @{
     'bc-server' = @{
         DeveloperServicesEnabled = 'true'
@@ -22,6 +30,10 @@ $Arguments = @{
         ClientServicesCredentialType = 'NavUserPassword'
         ServicesCertificateThumbprint = '${my-private-certificate.CertificateThumbprint}'
         AllowSessionCallSuspendWhenWriteTransactionStarted = 'true'
+        # To use existing encryption key file, specify the path and password like below. If not specified, a new encryption key will be generated during setup.
+        # These parameters are only available for ls-setup-helper v0.15.1 or later.
+        # EncryptionKeyPath = 'c:\path\to\encryptionkey\encryptionkeyfile.key'
+        # EncryptionKeyPassword = (ConvertTo-EncryptedString 'YourPasswordHere') # This will pass in an encrypted string, which the setup will decrypt and use as the password for the encryption key file. Make sure to replace 'YourPasswordHere' with the actual password you want to use for the encryption key file.
     }
     'bc-web-client' = @{
         DnsIdentity =  '${my-public-certificate.DnsIdentity}'
