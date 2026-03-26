@@ -36,7 +36,7 @@ $Arguments = @{
         ServiceStartupType = 'Automatic'
         # Additional services that the BC service depends on:
         ServiceDependsOn = '' # Comma separated list, e.g. 'MSSQLSERVER,MSSQL$SQLEXPRESS'
-        # Whether to restart the service upon completion of installation or update:
+        # Whether to restart the service upon completion of installation or update of the service tier, apps or licenses:
         RestartServiceOnCompletion = 'False'
 
         ### Business Central settings:
